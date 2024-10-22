@@ -8,6 +8,7 @@ const chatRoutes = require("./routes/chatRoutes");
 const messageRoutes = require("./routes/messageRoutes");
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 const path = require("path");
+const cors = require('cors');
 
 
 
@@ -15,7 +16,13 @@ dotenv.config();
 connectDB();
 app.use(express.json());
 
+// Enable CORS for all origins (for development)
+app.use(cors());
 
+// Or restrict CORS to your frontend's origin
+app.use(cors({
+  origin: '*', // Replace with your frontend origin
+}));
 
 // app.get('/api/chat', (req, res) => {
 //     res.send(chats);
@@ -36,19 +43,19 @@ app.set("view engine", "ejs");
 
 //--DEPLOYMENT-----------
 
-const __dirname1 = path.resolve();
+// const __dirname1 = path.resolve();
 
-if(process.env.NODE_ENV === 'production'){
-    app.use(express.static(path.join(__dirname1, "/frontend/build")));
+// if(process.env.NODE_ENV === 'production'){
+//     app.use(express.static(path.join(__dirname1, "/frontend/build")));
 
-    app.get('*', (req,res) => {
-        res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"));
-    })
-}else{
-    app.get('/', (req, res) => {
-        res.send("API is Runnnning");
-    });
-}
+//     app.get('*', (req,res) => {
+//         res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"));
+//     })
+// }else{
+//     app.get('/', (req, res) => {
+//         res.send("API is Runnnning");
+//     });
+// }
 
 
 
