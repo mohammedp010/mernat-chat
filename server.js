@@ -63,7 +63,7 @@ app.set("view engine", "ejs");
 //--DEPLOYMENT-----------
 app.use(notFound)
 app.use(errorHandler)
-const PORT = process.env.PORT || 6000;
+const PORT = process.env.PORT;
 const server = app.listen(PORT,console.log(`Server listening on port ${PORT}`));
 
 const io = require("socket.io")(server, {
