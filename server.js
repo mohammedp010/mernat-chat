@@ -20,7 +20,8 @@ app.use(cors());
 // Or restrict CORS to your frontend's origin
 app.use(
   cors({
-    origin: "*", // Replace with your frontend origin
+    origin: "*",
+    credentials: true // Replace with your frontend origin
   })
 );
 
@@ -43,19 +44,23 @@ app.set("view engine", "ejs");
 
 //--DEPLOYMENT-----------
 
-const __dirname1 = path.resolve();
+// const __dirname1 = path.resolve();
 
-if(process.env.NODE_ENV === 'production'){
-    app.use(express.static(path.join(__dirname1, "/frontend/build")));
+// if(process.env.NODE_ENV === 'production'){
+//     app.use(express.static(path.join(__dirname1, "/frontend/build")));
 
-    app.get('*', (req,res) => {
-        res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"));
-    })
-}else{
-    app.get('/', (req, res) => {
-        res.send("API is Runnnning");
-    });
-}
+//     app.get('*', (req,res) => {
+//         res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"));
+//     })
+// }else{
+//     app.get('/', (req, res) => {
+//         res.send("API is Runnnning");
+//     });
+// }
+
+app.get('/', (req, res) => {
+    res.send("API is Running");
+});
 
 //--DEPLOYMENT-----------
 app.use(notFound);
